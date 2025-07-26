@@ -1,6 +1,6 @@
 {
   "name": "@syntropyfront/interceptors",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.2",
   "description": "Official interceptors for SyntropyFront - Framework-specific interceptors for React, Vue, Angular, and more",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -13,7 +13,8 @@
   },
   "files": [
     "dist",
-    "README.md"
+    "README.md",
+    "assets"
   ],
   "scripts": {
     "build": "rollup -c",
