@@ -1,6 +1,45 @@
-# @syntropyfront/interceptors
+<p align="center">
+  <img src="./assets/syntropysoft-logo.png" alt="SyntropySoft Logo" width="170"/>
+</p>
 
-Official interceptors for SyntropyFront - Framework-specific interceptors for React, Vue, Angular, and more.
+<h1 align="center">@syntropyfront/interceptors</h1>
+
+<p align="center">
+  <strong>Framework-Specific Interceptors</strong>
+  <br />
+  Seamless integration with React, Vue, Angular, and more
+</p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/@syntropyfront/interceptors">
+    <img src="https://img.shields.io/npm/v/@syntropyfront/interceptors.svg" alt="npm version">
+  </a>
+  <a href="https://www.npmjs.com/package/@syntropyfront/interceptors">
+    <img src="https://img.shields.io/npm/dm/@syntropyfront/interceptors.svg" alt="npm downloads">
+  </a>
+  <a href="https://github.com/Syntropysoft/syntropyfront-interceptors/blob/main/LICENSE">
+    <img src="https://img.shields.io/npm/l/@syntropyfront/interceptors.svg" alt="License">
+  </a>
+</p>
+
+<p align="center">
+  Official interceptors for <strong>SyntropyFront</strong> - Framework-specific interceptors that provide seamless integration with popular frontend frameworks and state management libraries.
+</p>
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Quick Start](#quick-start)
+- [Usage](#usage)
+- [Available Interceptors](#available-interceptors)
+- [Object Tracking](#object-tracking-with-proxyobjecttracker)
+- [Creating Your Own Interceptors](#creating-your-own-interceptors)
+- [Secure API Reference](#secure-api-reference)
+- [Interceptor Configuration](#interceptor-configuration)
+- [Security Benefits](#security-benefits)
+- [Examples](#examples)
+- [Links](#links)
+- [License](#license)
 
 ## Installation
 
@@ -8,18 +47,45 @@ Official interceptors for SyntropyFront - Framework-specific interceptors for Re
 npm install @syntropyfront/interceptors
 ```
 
-## Usage
-
-All interceptors are used with the core `syntropylogfront` library via the `inject()` method:
+## Quick Start
 
 ```javascript
-import { SyntropyFront } from 'syntropylogfront';
+import { SyntropyFront } from '@syntropysoft/syntropyfront';
 import { ReduxInterceptor, VuexInterceptor } from '@syntropyfront/interceptors';
 
 // Initialize SyntropyFront
-SyntropyFront.init({
+await SyntropyFront.init({
+    preset: 'balanced',
     agent: {
-        endpoint: 'https://api.tuapp.com/errors'
+        endpoint: 'https://api.yourapp.com/errors'
+    }
+});
+
+// Inject interceptors
+SyntropyFront.inject('redux', ReduxInterceptor());
+SyntropyFront.inject('vuex', VuexInterceptor());
+
+// Configure stores (recommended)
+const reduxInfo = SyntropyFront.getInterceptorInfo('redux');
+reduxInfo?.setStore(myReduxStore);
+
+const vuexInfo = SyntropyFront.getInterceptorInfo('vuex');
+vuexInfo?.setStore(myVuexStore);
+```
+
+## Usage
+
+All interceptors are used with the core `@syntropysoft/syntropyfront` library via the `inject()` method:
+
+```javascript
+import { SyntropyFront } from '@syntropysoft/syntropyfront';
+import { ReduxInterceptor, VuexInterceptor } from '@syntropyfront/interceptors';
+
+// Initialize SyntropyFront
+await SyntropyFront.init({
+    preset: 'balanced',
+    agent: {
+        endpoint: 'https://api.yourapp.com/errors'
     }
 });
 
@@ -148,46 +214,46 @@ if (window.reduxStore) {
 - **Less Flexible**: Can't work with custom store locations
 - **Hidden Dependencies**: Not clear what the interceptor needs
 
-## 🔄 Inicialización "Perezosa" con Retry
+## 🔄 Lazy Initialization with Retry
 
-### El Problema del Orden de Inicialización
+### The Initialization Order Problem
 
-En aplicaciones reales, los stores se crean después del `init()`:
-
-```javascript
-// ❌ PROBLEMA: Orden incorrecto
-SyntropyFront.init(); // Interceptor busca store
-// ... tiempo después ...
-const store = createStore(); // Store se crea tarde
-```
-
-### La Solución: Retry Automático
-
-Los interceptores implementan inicialización "perezosa" que espera a que los stores se creen:
+In real applications, stores are created after `init()`:
 
 ```javascript
-// Los interceptores buscan automáticamente los stores con retry
-// Redux: busca en window.reduxStore, window.store, etc.
-// Vuex: busca en window.vuexStore, window.store, etc.
-
-// Si no encuentra el store inmediatamente, reintenta 5 veces cada 500ms
-console.log('SyntropyFront: Buscando store de Redux... (5 intentos restantes)');
-console.log('SyntropyFront: Buscando store de Redux... (4 intentos restantes)');
-// ... hasta encontrar o agotar intentos
-
-// Si encuentra el store automáticamente
-console.log('SyntropyFront: Store de Redux encontrado y configurado automáticamente.');
-
-// Si no encuentra después de todos los intentos
-console.warn('SyntropyFront: No se encontró store de Redux después de varios intentos. Usa setStore() para configurarlo manualmente.');
+// ❌ PROBLEM: Incorrect order
+SyntropyFront.init(); // Interceptor looks for store
+// ... time later ...
+const store = createStore(); // Store created late
 ```
 
-### Beneficios de la Inicialización "Perezosa":
+### The Solution: Automatic Retry
 
-- **✅ Plug-and-play**: No importa el orden de inicialización
-- **✅ Resiliente**: Espera a que los stores se creen
-- **✅ No bloqueante**: No interrumpe la inicialización de la app
-- **✅ Fallback manual**: Si no encuentra automáticamente, permite configuración manual
+Interceptors implement lazy initialization that waits for stores to be created:
+
+```javascript
+// Interceptors automatically search for stores with retry
+// Redux: searches in window.reduxStore, window.store, etc.
+// Vuex: searches in window.vuexStore, window.store, etc.
+
+// If store is not found immediately, retries 5 times every 500ms
+console.log('SyntropyFront: Searching for Redux store... (5 attempts remaining)');
+console.log('SyntropyFront: Searching for Redux store... (4 attempts remaining)');
+// ... until found or attempts exhausted
+
+// If store is found automatically
+console.log('SyntropyFront: Redux store found and configured automatically.');
+
+// If not found after all attempts
+console.warn('SyntropyFront: Redux store not found after several attempts. Use setStore() to configure it manually.');
+```
+
+### Benefits of Lazy Initialization:
+
+- **✅ Plug-and-play**: Order of initialization doesn't matter
+- **✅ Resilient**: Waits for stores to be created
+- **✅ Non-blocking**: Doesn't interrupt app initialization
+- **✅ Manual fallback**: If not found automatically, allows manual configuration
 - **Hard to Test**: Depends on global variables
 - **Less Reusable**: Tied to specific conventions
 
