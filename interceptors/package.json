@@ -1,6 +1,6 @@
 {
   "name": "@syntropyfront/interceptors",
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "description": "Official interceptors for SyntropyFront - Framework-specific interceptors for React, Vue, Angular, and more",
   "main": "dist/index.js",
   "module": "dist/index.js",
