@@ -1,0 +1,55 @@
+{
+  "name": "@syntropyfront/interceptors",
+  "version": "0.1.0-alpha.1",
+  "description": "Official interceptors for SyntropyFront - Framework-specific interceptors for React, Vue, Angular, and more",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js",
+    "./react": "./dist/react.js",
+    "./vue": "./dist/vue.js",
+    "./angular": "./dist/angular.js"
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "build:watch": "rollup -c -w",
+    "dev": "npm run build:watch",
+    "prepublishOnly": "npm run build",
+    "clean": "rm -rf dist"
+  },
+  "keywords": [
+    "syntropyfront",
+    "interceptors",
+    "react",
+    "vue",
+    "angular",
+    "frontend",
+    "tracing",
+    "monitoring",
+    "redux",
+    "vuex"
+  ],
+  "author": "SyntropySoft",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Syntropysoft/syntropyfront-interceptors.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Syntropysoft/syntropyfront/issues"
+  },
+  "homepage": "https://github.com/Syntropysoft/syntropyfront#readme",
+  "peerDependencies": {
+    "@syntropysoft/syntropyfront": "^0.1.0-alpha.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.0",
+    "rollup": "^4.0.0"
+  }
+} 
