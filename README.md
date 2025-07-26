@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/Syntropysoft/syntropyfront-interceptors/main/assets/syntropysoft-logo.png" alt="SyntropySoft Logo" width="170"/>
+  <img src="https://raw.githubusercontent.com/Syntropysoft/syntropyLog/main/assets/beaconLog-2.png" alt="SyntropyLog Logo" width="170"/>
 </p>
 
 <h1 align="center">@syntropyfront/interceptors</h1>
