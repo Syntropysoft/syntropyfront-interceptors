@@ -1,5 +1,5 @@
 {
-  "name": "@syntropyfront/interceptors",
+  "name": "syntropyfront-interceptors",
   "version": "0.1.0-alpha.7",
   "description": "Official interceptors for SyntropyFront - Framework-specific interceptors for React, Vue, Angular, and more",
   "main": "dist/index.js",
