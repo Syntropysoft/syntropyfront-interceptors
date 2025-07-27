@@ -161,6 +161,51 @@ if (vuexInfo && vuexInfo.autoFindStore) {
 // - Add breadcrumbs for state changes
 ```
 
+### Error Interceptor
+
+Automatically captures uncaught errors and unhandled promise rejections.
+
+```javascript
+import { ErrorInterceptor } from '@syntropyfront/interceptors';
+
+// Inject Error interceptor
+SyntropyFront.inject('error', ErrorInterceptor());
+
+// The interceptor will automatically:
+// - Capture uncaught JavaScript errors (window.onerror)
+// - Capture unhandled promise rejections (window.onunhandledrejection)
+// - Collect all breadcrumbs when errors occur
+// - Send complete error payload with context
+
+// Configuration options
+const errorInfo = SyntropyFront.getInterceptorInfo('error');
+if (errorInfo) {
+    // Configure interceptor behavior
+    errorInfo.init(SyntropyFront, {
+        captureErrors: true,              // Capture window.onerror
+        captureUnhandledRejections: true, // Capture promise rejections
+        logToConsole: true               // Log to console for debugging
+    });
+}
+
+// Example: Error will be automatically captured
+setTimeout(() => {
+    const obj = null;
+    console.log(obj.nonExistentProperty); // This triggers automatic capture
+}, 1000);
+
+// Example: Promise rejection will be automatically captured
+Promise.reject(new Error('Test rejection')); // This triggers automatic capture
+```
+
+**Features:**
+- ✅ **Automatic Error Capture**: No manual error handling required
+- ✅ **Promise Rejection Tracking**: Captures unhandled promise rejections
+- ✅ **Breadcrumb Collection**: Collects all breadcrumbs when errors occur
+- ✅ **Complete Context**: Sends error details, stack trace, and breadcrumbs
+- ✅ **Chaining Pattern**: Preserves existing error handlers
+- ✅ **Configurable**: Enable/disable specific capture types
+
 ## Object Tracking with ProxyObjectTracker
 
 For tracking any JavaScript object (not just framework stores), use the built-in **ProxyObjectTracker** from the core library:

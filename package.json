@@ -1,6 +1,6 @@
 {
   "name": "@syntropyfront/interceptors",
-  "version": "0.1.0-alpha.6",
+  "version": "0.1.0-alpha.7",
   "description": "Official interceptors for SyntropyFront - Framework-specific interceptors for React, Vue, Angular, and more",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -33,7 +33,10 @@
     "tracing",
     "monitoring",
     "redux",
-    "vuex"
+    "vuex",
+    "error-capture",
+    "automatic-errors",
+    "promise-rejections"
   ],
   "author": "SyntropySoft",
   "license": "Apache-2.0",
