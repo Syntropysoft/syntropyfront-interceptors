@@ -6,15 +6,14 @@
  * with the core SyntropyFront library via the injectCustomInterceptor() method.
  */
 
+// Import and re-export ErrorInterceptor
+import ErrorInterceptor from './ErrorInterceptor.js';
+
 // Export individual interceptors
-export { default as ReduxInterceptor } from './ReduxInterceptor.js';
-export { default as VuexInterceptor } from './VuexInterceptor.js';
-export { default as ErrorInterceptor } from './ErrorInterceptor.js';
+export { ErrorInterceptor };
 
 // Export all interceptors as a collection
 export const interceptors = {
-  redux: ReduxInterceptor,
-  vuex: VuexInterceptor,
   error: ErrorInterceptor
 };
 
